@@ -7,7 +7,7 @@ export default function RootLayout() {
       <Stack.Screen name="index" />
 
       {/* Tab layout (hidden until login navigates here) */}
-      <Stack.Screen name="tabs" />
+      <Stack.Screen name="(tabs)" />
 
       {/* Optional modal */}
       <Stack.Screen name="modal" options={{ presentation: "modal" }} />
