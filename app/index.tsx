@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "expo-router";
 import {
   View,
   Text,
@@ -12,13 +13,19 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function CareerScreen() {
   const [password, setPassword] = useState("");
   const [hidePassword, setHidePassword] = useState(true);
+  const router = useRouter();
+
+  function handleLogin() {
+    // after login success, go to tabs/home
+    router.replace("/(tabs)");
+  }
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#d9efffff" }}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Sign In</Text>
           <Image
-            source={require("../../assets/images/logo.png")}
+            source={require("../assets/images/logo.png")}
             style={styles.headerImg}
             alt="logo"
           />
@@ -37,7 +44,7 @@ export default function CareerScreen() {
             value={password}
             secureTextEntry={hidePassword}
           />
-          <TouchableOpacity style={styles.btnLogin}>
+          <TouchableOpacity style={styles.btnLogin} onPress={handleLogin}>
             <Text style={styles.btnText}>Login</Text>
           </TouchableOpacity>
           <Text style={styles.forgotPswLabel}>Forgot Password ?</Text>
