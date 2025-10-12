@@ -31,47 +31,86 @@ export default function Profilepage() {
           />
 
           <Text style={styles.profileName}>Lim Yoong How</Text>
-
           <View style={styles.box}>
-            <Text style={styles.label}>Username:</Text>
-            <TextInput
-              placeholder="Enter your name"
-              style={styles._textInput}
+            {/*Education */}
+            <Text style={styles.subheader}>Education</Text>
+            <View
+              style={{
+                height: 2,
+                backgroundColor: "#ccc",
+                width: "100%",
+                marginVertical: 12,
+              }}
             />
+            <Text style={styles.label}>Education Level:</Text>
+            <Text style={styles.profileData}>
+              Diploma in Information technology
+            </Text>
+            <Text style={styles.label}>Field of study:</Text>
+            <Text style={styles.profileData}>Information Technology</Text>
+            <Text style={styles.label}>Academic Result:</Text>
+            <Text style={styles.profileData}>CGPA 3.27</Text>
 
-            <Text style={styles.label}>Email:</Text>
-            <TextInput
-              placeholder="Enter your email"
-              style={styles._textInput}
+            {/*Career Profile */}
+            <Text style={styles.subheader}>Skill</Text>
+            <View
+              style={{
+                height: 2,
+                backgroundColor: "#ccc",
+                width: "100%",
+                marginVertical: 12,
+              }}
             />
+            <View style={styles.skillContainer}>
+              <Text style={styles.skillData}>Python AI programming</Text>
+              <Text style={styles.skillData}>PHP Programming</Text>
+              <Text style={styles.skillData}>AWS Cloud Service</Text>
+              <Text style={styles.skillData}>React Native</Text>
+              <Text style={styles.skillData}>Machine Learning</Text>
+            </View>
 
-            <Text style={styles.label}>Password:</Text>
-            <TextInput
-              placeholder="Enter your password"
-              style={styles._textInput}
-              secureTextEntry
+            {/*Career History */}
+            <Text style={styles.subheader}>Career History</Text>
+            <View
+              style={{
+                height: 2,
+                backgroundColor: "#ccc",
+                width: "100%",
+                marginVertical: 12,
+              }}
             />
+            <View style={styles.careerHisotryContainer}>
+              <View style={styles.careerHistoryBox}>
+                <Text style={styles.careerData}>
+                  Computer Technician Intern
+                </Text>
+                <Text style={styles.careerData}>C.T. Technology Sdn.Bhd</Text>
+                <Text style={styles.careerData}>Nov 2023 - Jan 2024</Text>
+              </View>
+              <View style={styles.careerHistoryBox}>
+                <Text style={styles.careerData}>
+                  Software Engineering Intern
+                </Text>
+                <Text style={styles.careerData}>ABC Wtt Sdn. sBhd</Text>
+                <Text style={styles.careerData}>Nov 2023 - Jan 2024</Text>
+              </View>
+            </View>
 
-            <Text style={styles.label}>Confirm Password:</Text>
-            <TextInput
-              placeholder="Enter your password again"
-              style={styles._textInput}
-              secureTextEntry
+            {/*Language */}
+            <Text style={styles.subheader}>Languages</Text>
+            <View
+              style={{
+                height: 2,
+                backgroundColor: "#ccc",
+                width: "100%",
+                marginVertical: 12,
+              }}
             />
-
-            <Text style={styles.label}>Confirm Password:</Text>
-            <TextInput
-              placeholder="Enter your password again"
-              style={styles._textInput}
-              secureTextEntry
-            />
-
-            <Text style={styles.label}>Confirm Password:</Text>
-            <TextInput
-              placeholder="Enter your password again"
-              style={styles._textInput}
-              secureTextEntry
-            />
+            <View style={styles.languageContainer}>
+              <Text style={styles.language}>Bahasa Malaysia</Text>
+              <Text style={styles.language}>English</Text>
+              <Text style={styles.language}>Chinese - Mandarin</Text>
+            </View>
           </View>
           <TouchableOpacity
             style={styles.btnLogout}
@@ -134,25 +173,91 @@ const styles = StyleSheet.create({
     elevation: 4,
     marginTop: 10,
   },
+  // Profile data
+  subheader: {
+    fontSize: 21,
+    fontWeight: "bold",
+    color: "#003bb1ff",
+    marginTop: 12,
+    textAlign: "center",
+  },
 
   label: {
     fontSize: 18,
-    fontWeight: "600",
+    fontWeight: "bold",
     color: "#1B457C",
     marginTop: 10,
   },
 
-  _textInput: {
-    marginBottom: 8,
-    marginTop: 5,
-    height: 50,
-    borderRadius: 8,
-    borderWidth: 2,
-    borderColor: "#7b9ef6ff",
-    fontSize: 16,
-    paddingHorizontal: 10,
+  profileData: {
+    fontSize: 18,
+    fontWeight: "500",
+    color: "#868686ff",
+    marginTop: 10,
   },
 
+  //Skill Profile
+
+  skillContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
+    marginTop: 10,
+  },
+
+  skillData: {
+    backgroundColor: "#E7EEFF",
+    color: "#1B457C",
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 20,
+    fontSize: 17,
+    fontWeight: "500",
+  },
+
+  //Career History Box
+
+  careerHisotryContainer: {
+    flexDirection: "column",
+    gap: 15,
+    marginTop: 10,
+  },
+
+  careerHistoryBox: {
+    borderWidth: 2,
+    backgroundColor: "#f5f8ffff",
+    paddingVertical: 7,
+    paddingHorizontal: 13,
+    borderRadius: 20,
+    borderColor: "#a5cafeff",
+  },
+
+  careerData: {
+    padding: 1,
+    fontSize: 18,
+    fontWeight: "500",
+    color: "#1B457C",
+  },
+
+  //Language containers
+  languageContainer: {
+    flexDirection: "column",
+    gap: 10,
+    marginTop: 10,
+  },
+
+  language: {
+    padding: 1,
+    fontSize: 18,
+    fontWeight: "500",
+    color: "#1B457C",
+    backgroundColor: "#E7EEFF",
+    paddingVertical: 7,
+    paddingHorizontal: 13,
+    borderRadius: 20,
+  },
+
+  // Button Logout
   btnLogout: {
     padding: 12,
     borderWidth: 2,
