@@ -17,13 +17,13 @@ export default function CareerScreen() {
 
   function handleLogin() {
     // after login success, go to tabs/home
-    router.replace("/(tabs)");
+    router.replace("/educationSetup");
   }
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#d9efffff" }}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>Sign In</Text>
+          <Text style={styles.headerTitle}>Login</Text>
           <Image
             source={require("../assets/images/logo.png")}
             style={styles.headerImg}
@@ -49,6 +49,15 @@ export default function CareerScreen() {
           </TouchableOpacity>
           <Text style={styles.forgotPswLabel}>Forgot Password ?</Text>
         </View>
+        <Text style={styles.asking}>
+          Don{"'"}t have an account yet?{" "}
+          <Text
+            style={styles.register}
+            onPress={() => router.push("/register")}
+          >
+            Sign up now
+          </Text>
+        </Text>
       </View>
     </SafeAreaView>
   );
@@ -58,6 +67,19 @@ const styles = StyleSheet.create({
     padding: 24,
     flex: 1,
   },
+
+  register: {
+    textDecorationLine: "underline",
+    fontWeight: "500",
+  },
+
+  asking: {
+    fontSize: 15,
+    textAlign: "center",
+    color: "#4a60c0ff",
+    marginTop: 15,
+  },
+
   header: {
     marginVertical: 36,
   },
@@ -136,7 +158,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 10,
     height: "17%",
-    borderRadius: 5,
+    borderRadius: 8,
     borderWidth: 2,
     borderColor: "#7b9ef6ff",
     fontSize: 16,
