@@ -20,7 +20,7 @@ export default function Homepage() {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.headerTitle}>Recommended Careers</Text>
+        <Text style={styles.headerTitle}>Learning & Achievements</Text>
         <View style={styles.searchContainer}>
           <Ionicons
             name="search"
@@ -30,25 +30,43 @@ export default function Homepage() {
           />
           <TextInput
             style={styles.searchInput}
-            placeholder="Career search"
+            placeholder="What do you want to learn"
             placeholderTextColor="#999"
           />
         </View>
-        {Array.from({ length: 6 }).map((_, index) => (
+        <Text style={styles.subheader}>Recommanded Courses</Text>
+        {Array.from({ length: 4 }).map((_, index) => (
           <View key={index} style={styles.box}>
+            <View style={styles.textContainer}>
+              <Text style={styles.courseTitle}>
+                Foundations: Data, Data, Data Everywhere
+              </Text>
+              <Text style={styles.courseProvider}>Google</Text>
+              <Text style={styles.achievementType}>Course</Text>
+              <Text style={styles.rate}>⭐ 4.8 {"(233k)"}</Text>
+            </View>
             <Image
-              source={require("../../assets/images/people.jpeg")}
+              source={require("../../assets/images/exploration.png")}
               style={styles.companyLogo}
             />
+          </View>
+        ))}
+
+        <Text style={styles.subheader}>Recommanded Certificates</Text>
+        {Array.from({ length: 4 }).map((_, index) => (
+          <View key={index} style={styles.box}>
             <View style={styles.textContainer}>
-              <Text style={styles.jobTitle}>
-                Internship - Software Engineer
+              <Text style={styles.courseTitle}>
+                Foundations: Data, Data, Data Everywhere
               </Text>
-              <Text style={styles.companyName}>Google Inc.</Text>
-              <Text style={styles.jobType}>Full Time</Text>
-              <Text style={styles.location}>Kuala Lumpur, Malaysia</Text>
-              <Text style={styles.salary}>RM1000 - RM1200</Text>
+              <Text style={styles.courseProvider}>Google</Text>
+              <Text style={styles.achievementType}>Course</Text>
+              <Text style={styles.rate}>⭐ 4.8 {"(233k)"}</Text>
             </View>
+            <Image
+              source={require("../../assets/images/exploration.png")}
+              style={styles.companyLogo}
+            />
           </View>
         ))}
       </ScrollView>
@@ -59,7 +77,7 @@ export default function Homepage() {
 const styles = StyleSheet.create({
   scrollContainer: {
     marginTop: 60,
-    padding: 10,
+    padding: 15,
     paddingBottom: 100,
   },
 
@@ -71,6 +89,13 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
 
+  subheader: {
+    color: "#90a5f9ff",
+    fontSize: 23,
+    fontWeight: "700",
+    marginBottom: 6,
+    marginTop: 10,
+  },
   _textInput: {
     width: "100%",
     marginBottom: 8,
@@ -92,7 +117,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     height: 50,
     marginTop: 10,
-    marginBottom: 5,
   },
   searchIcon: {
     marginRight: 8,
@@ -109,18 +133,14 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     backgroundColor: "#fff",
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
     elevation: 4,
-    marginTop: 12,
+    marginTop: 6,
   },
 
   companyLogo: {
     height: 65,
     width: 65,
-    marginRight: 20,
+    marginLeft: 20,
     borderRadius: 5,
   },
 
@@ -128,33 +148,29 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  jobTitle: {
-    fontSize: 18,
+  courseTitle: {
+    fontSize: 16,
     fontWeight: "700",
     color: "#1B457C",
+    flexShrink: 1,
+    flexWrap: "wrap",
   },
 
-  companyName: {
-    fontSize: 18,
+  courseProvider: {
+    fontSize: 14,
     color: "#6b6b6b",
-    marginTop: 4,
-  },
-
-  jobType: {
-    fontSize: 15,
-    color: "#8b8b8b",
     marginTop: 2,
   },
 
-  location: {
-    fontSize: 15,
+  achievementType: {
+    fontSize: 14,
     color: "#8b8b8b",
-    marginTop: 2,
+    marginTop: 1,
   },
 
-  salary: {
-    fontSize: 15,
+  rate: {
+    fontSize: 14,
     color: "#8b8b8b",
-    marginTop: 2,
+    marginTop: 1,
   },
 });

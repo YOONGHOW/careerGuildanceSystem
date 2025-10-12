@@ -33,7 +33,7 @@ export default function Profilepage() {
           <Text style={styles.profileName}>Lim Yoong How</Text>
           <View style={styles.box}>
             {/*Education */}
-            <Text style={styles.subheader}>Education</Text>
+            <Text style={styles.firstheader}>Education</Text>
             <View
               style={{
                 height: 2,
@@ -84,15 +84,15 @@ export default function Profilepage() {
                 <Text style={styles.careerData}>
                   Computer Technician Intern
                 </Text>
-                <Text style={styles.careerData}>C.T. Technology Sdn.Bhd</Text>
-                <Text style={styles.careerData}>Nov 2023 - Jan 2024</Text>
+                <Text style={styles.cmpName}>C.T. Technology Sdn.Bhd</Text>
+                <Text style={styles.duration}>Nov 2023 - Jan 2024</Text>
               </View>
               <View style={styles.careerHistoryBox}>
                 <Text style={styles.careerData}>
                   Software Engineering Intern
                 </Text>
-                <Text style={styles.careerData}>ABC Wtt Sdn. sBhd</Text>
-                <Text style={styles.careerData}>Nov 2023 - Jan 2024</Text>
+                <Text style={styles.cmpName}>ABC Wtt Sdn. Bhd</Text>
+                <Text style={styles.duration}>Nov 2023 - Jan 2024</Text>
               </View>
             </View>
 
@@ -138,15 +138,15 @@ const styles = StyleSheet.create({
 
   headerTitle: {
     color: "#8c92aaff",
-    fontSize: 27,
+    fontSize: 24,
     fontWeight: "700",
     textAlign: "center",
     marginBottom: 6,
   },
 
   headerImg: {
-    height: 110,
-    width: 110,
+    height: 90,
+    width: 90,
     alignSelf: "center",
     marginBottom: 36,
     borderRadius: 100,
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: -25,
     marginBottom: 10,
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
     color: "#656e9eff",
   },
@@ -174,11 +174,19 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   // Profile data
+  firstheader: {
+    fontSize: 21,
+    fontWeight: "bold",
+    color: "#003bb1ff",
+    marginTop: 10,
+    textAlign: "center",
+  },
+
   subheader: {
     fontSize: 21,
     fontWeight: "bold",
     color: "#003bb1ff",
-    marginTop: 12,
+    marginTop: 30,
     textAlign: "center",
   },
 
@@ -226,8 +234,8 @@ const styles = StyleSheet.create({
   careerHistoryBox: {
     borderWidth: 2,
     backgroundColor: "#f5f8ffff",
-    paddingVertical: 7,
-    paddingHorizontal: 13,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     borderRadius: 20,
     borderColor: "#a5cafeff",
   },
@@ -237,6 +245,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "500",
     color: "#1B457C",
+  },
+
+  cmpName: {
+    padding: 1,
+    fontSize: 15,
+    fontWeight: "500",
+    color: "#606e81ff",
+  },
+
+  duration: {
+    padding: 1,
+    fontSize: 15,
+    fontWeight: "500",
+    color: "#606e81ff",
   },
 
   //Language containers
@@ -265,7 +287,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     width: "75%",
     alignSelf: "center",
-    marginTop: 25,
+    marginTop: 35,
     backgroundColor: "#e7eeffff",
   },
 

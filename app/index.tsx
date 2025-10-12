@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: "center",
     color: "#4a60c0ff",
-    marginTop: 15,
+    marginTop: 20,
   },
 
   header: {
@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     textAlign: "center",
     marginBottom: 6,
+    marginTop: -30,
   },
   logoName: {
     textAlign: "center",
@@ -113,8 +114,8 @@ const styles = StyleSheet.create({
 
   box: {
     width: "100%",
-    height: "50%",
-    padding: 30,
+    height: "48%",
+    padding: 20,
     borderRadius: 12,
     backgroundColor: "#fff",
     shadowColor: "#000",
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: "right",
     color: "#4a60c0ff",
-    marginTop: 30,
+    marginTop: 25,
   },
 
   btnLogin: {
@@ -157,7 +158,7 @@ const styles = StyleSheet.create({
   _textInput: {
     marginBottom: 8,
     marginTop: 10,
-    height: "17%",
+    height: "16%",
     borderRadius: 8,
     borderWidth: 2,
     borderColor: "#7b9ef6ff",

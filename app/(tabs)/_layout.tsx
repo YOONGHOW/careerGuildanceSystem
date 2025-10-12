@@ -1,12 +1,70 @@
 import { Tabs } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function TabLayout() {
   return (
-    <Tabs screenOptions={{ headerShown: false }}>
-      <Tabs.Screen name="home" options={{ title: "Home" }} />
-      <Tabs.Screen name="course" options={{ title: "Course" }} />
-      <Tabs.Screen name="mock_interview" options={{ title: "Interview" }} />
-      <Tabs.Screen name="profile" options={{ title: "Profile" }} />
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: "#007bff",
+        tabBarInactiveTintColor: "gray",
+      }}
+    >
+      <Tabs.Screen
+        name="home"
+        options={{
+          title: "Home",
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? "home" : "home-outline"}
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="achievements"
+        options={{
+          title: "Achievements",
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? "trophy" : "trophy-outline"}
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="learn"
+        options={{
+          title: "Learn",
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? "book" : "book-outline"}
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Profile",
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? "person" : "person-outline"}
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   header: {
     marginVertical: 36,
-    marginTop: 150,
+    marginTop: 80,
   },
 
   headerTitle: {
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
 
   box: {
     width: "100%",
-    height: "67%",
-    padding: 30,
+    height: "70%",
+    padding: 20,
     borderRadius: 12,
     backgroundColor: "#fff",
     shadowColor: "#000",
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
 
   label: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "600",
     color: "#1B457C",
   },

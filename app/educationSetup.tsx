@@ -191,8 +191,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    marginVertical: 36,
-    marginTop: 120,
+    marginVertical: 30,
+    marginTop: 70,
   },
   headerTitle: {
     color: "#8BA0FF",
@@ -213,8 +213,8 @@ const styles = StyleSheet.create({
 
   box: {
     width: "100%",
-    height: "60%",
-    padding: 30,
+    height: "68%",
+    padding: 20,
     borderRadius: 12,
     backgroundColor: "#fff",
     shadowColor: "#000",
