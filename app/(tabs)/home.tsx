@@ -9,22 +9,18 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-export default function Coursepage() {
+export default function Homepage() {
   const router = useRouter();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#d9efffff" }}>
-      <View style={styles.container}>
-        <View>
-          <Text>Hello </Text>
-        </View>
-      </View>
+      <View style={styles.container}></View>
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: 24,
     flex: 1,
   },
 

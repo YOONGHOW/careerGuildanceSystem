@@ -11,7 +11,7 @@ import {
   StyleSheet,
 } from "react-native";
 
-export default function UserPersonalization() {
+export default function CareerProfile() {
   const router = useRouter();
   const interests = [
     "Information Technology",
@@ -175,7 +175,7 @@ export default function UserPersonalization() {
           {/* Button */}
           <TouchableOpacity
             style={styles.btnNext}
-            onPress={() => router.push("/(tabs)")}
+            onPress={() => router.push("/(tabs)/home")}
           >
             <Text style={styles.btnText}>Next</Text>
           </TouchableOpacity>

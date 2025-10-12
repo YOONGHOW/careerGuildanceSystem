@@ -11,7 +11,7 @@ import {
   StyleSheet,
 } from "react-native";
 
-export default function UserPersonalization() {
+export default function EducationSetup() {
   const router = useRouter();
   const interests = [
     "Information Technology",
