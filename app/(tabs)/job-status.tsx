@@ -1,16 +1,14 @@
 import { useRouter } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
 import {
   View,
   Text,
   StyleSheet,
   Image,
-  TextInput,
   ScrollView,
   KeyboardAvoidingView,
 } from "react-native";
 
-export default function Homepage() {
+export default function JobStatus() {
   const router = useRouter();
 
   return (
@@ -20,21 +18,9 @@ export default function Homepage() {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.headerTitle}>Recommended Careers</Text>
-        <View style={styles.searchContainer}>
-          <Ionicons
-            name="search"
-            size={20}
-            color="#777"
-            style={styles.searchIcon}
-          />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Career search"
-            placeholderTextColor="#999"
-          />
-        </View>
-        {Array.from({ length: 6 }).map((_, index) => (
+        <Text style={styles.headerTitle}>My Applications</Text>
+
+        {Array.from({ length: 2 }).map((_, index) => (
           <View key={index} style={styles.box}>
             <Image
               source={require("../../assets/images/logo.png")}
@@ -48,6 +34,9 @@ export default function Homepage() {
               <Text style={styles.jobType}>Full Time</Text>
               <Text style={styles.location}>Kuala Lumpur, Malaysia</Text>
               <Text style={styles.salary}>RM1000 - RM1200</Text>
+              <Text style={styles.status}>
+                Status: <Text style={styles.statusChange}>Received</Text>
+              </Text>
             </View>
           </View>
         ))}
@@ -69,37 +58,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     textAlign: "center",
     marginBottom: 6,
-  },
-
-  _textInput: {
-    width: "100%",
-    marginBottom: 8,
-    marginTop: 10,
-    padding: 15,
-    borderRadius: 25,
-    borderWidth: 2,
-    borderColor: "#7b9ef6ff",
-    fontSize: 16,
-    backgroundColor: "#ffffffff",
-  },
-  searchContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    borderRadius: 25,
-    borderWidth: 2,
-    borderColor: "#7b9ef6ff",
-    paddingHorizontal: 12,
-    height: 50,
-    marginTop: 10,
-    marginBottom: 5,
-  },
-  searchIcon: {
-    marginRight: 8,
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: 16,
   },
 
   box: {
@@ -156,5 +114,18 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#8b8b8b",
     marginTop: 2,
+  },
+
+  status: {
+    fontSize: 16,
+    color: "#81a2faff",
+    marginTop: 15,
+    fontWeight: "bold",
+  },
+
+  statusChange: {
+    fontSize: 15,
+    color: "#abb8ffff",
+    fontWeight: "bold",
   },
 });

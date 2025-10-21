@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import {
   View,
@@ -10,59 +11,32 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function LoginScreen() {
+export default function ForogtPassword() {
   const [password, setPassword] = useState("");
   const [hidePassword, setHidePassword] = useState(true);
   const router = useRouter();
 
-  function handleLogin() {
+  function handleOtp() {
     // after login success, go to tabs/home
-    router.replace("/educationSetup");
+    router.replace("/forgot-psw-otp");
   }
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#d9efffff" }}>
       <View style={styles.container}>
+        <TouchableOpacity style={styles.backBtn} onPress={() => router.back()}>
+          <Ionicons name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>Login</Text>
-          <Image
-            source={require("../assets/images/logo.png")}
-            style={styles.headerImg}
-            alt="logo"
-          />
-          <Text style={styles.logoName}>SPACE</Text>
-          <Text style={styles.systemName}>AI Career Guidance System</Text>
-          <Text></Text>
+          <Text style={styles.headerTitle}>Forgot Password</Text>
         </View>
         <View style={styles.box}>
           <Text style={styles.label}>Email: </Text>
           <TextInput placeholder="Enter your email" style={styles._textInput} />
-          <Text style={styles.label}>Password: </Text>
-          <TextInput
-            placeholder="Enter your password"
-            style={styles._textInput}
-            onChangeText={setPassword}
-            value={password}
-            secureTextEntry={hidePassword}
-          />
-          <TouchableOpacity style={styles.btnLogin} onPress={handleLogin}>
-            <Text style={styles.btnText}>Login</Text>
+
+          <TouchableOpacity style={styles.btnLogin} onPress={handleOtp}>
+            <Text style={styles.btnText}>Next</Text>
           </TouchableOpacity>
-          <Text
-            style={styles.forgotPswLabel}
-            onPress={() => router.push("/forgot-psw-email")}
-          >
-            Forgot Password ?
-          </Text>
         </View>
-        <Text style={styles.asking}>
-          Don{"'"}t have an account yet?{" "}
-          <Text
-            style={styles.register}
-            onPress={() => router.push("/register")}
-          >
-            Sign up now
-          </Text>
-        </Text>
       </View>
     </SafeAreaView>
   );
@@ -73,20 +47,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  register: {
-    textDecorationLine: "underline",
-    fontWeight: "500",
-  },
-
-  asking: {
-    fontSize: 15,
-    textAlign: "center",
-    color: "#4a60c0ff",
-    marginTop: 20,
-  },
-
   header: {
     marginVertical: 36,
+    marginTop: 200,
   },
   headerImg: {
     height: 150,
@@ -117,9 +80,16 @@ const styles = StyleSheet.create({
     fontFamily: "serif",
   },
 
+  backBtn: {
+    position: "absolute",
+    top: 40,
+    left: 20,
+    padding: 8,
+  },
+
   box: {
     width: "100%",
-    height: "48%",
+    height: "auto",
     padding: 20,
     borderRadius: 12,
     backgroundColor: "#fff",
@@ -163,7 +133,6 @@ const styles = StyleSheet.create({
   _textInput: {
     marginBottom: 8,
     marginTop: 10,
-    height: "16%",
     borderRadius: 8,
     borderWidth: 2,
     borderColor: "#7b9ef6ff",

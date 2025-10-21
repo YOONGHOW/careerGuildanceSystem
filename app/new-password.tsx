@@ -9,23 +9,16 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-export default function RegisterScreen() {
+export default function NewPassword() {
   const router = useRouter();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#d9efffff" }}>
       <View style={styles.container}>
-        <TouchableOpacity style={styles.backBtn} onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>Sign Up</Text>
+          <Text style={styles.headerTitle}>Change Password</Text>
         </View>
         <View style={styles.box}>
-          <Text style={styles.label}>Username: </Text>
-          <TextInput placeholder="Enter your name" style={styles._textInput} />
-          <Text style={styles.label}>Email: </Text>
-          <TextInput placeholder="Enter your email" style={styles._textInput} />
           <Text style={styles.label}>Password: </Text>
           <TextInput
             placeholder="Enter your password"
@@ -38,7 +31,7 @@ export default function RegisterScreen() {
           />
           <TouchableOpacity
             style={styles.btnNext}
-            onPress={() => router.push("/otpRequest")}
+            onPress={() => router.push("/")}
           >
             <Text style={styles.btnText}>Submit</Text>
           </TouchableOpacity>
@@ -54,7 +47,7 @@ const styles = StyleSheet.create({
   },
   header: {
     marginVertical: 36,
-    marginTop: 80,
+    marginTop: 100,
   },
 
   headerTitle: {
@@ -67,7 +60,7 @@ const styles = StyleSheet.create({
 
   box: {
     width: "100%",
-    height: "70%",
+    height: "auto",
     padding: 20,
     borderRadius: 12,
     backgroundColor: "#fff",
@@ -91,13 +84,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
 
-  backBtn: {
-    position: "absolute",
-    top: 40,
-    left: 20,
-    padding: 8,
-  },
-
   btnNext: {
     padding: 10,
     borderWidth: 2,
@@ -119,7 +105,6 @@ const styles = StyleSheet.create({
   _textInput: {
     marginBottom: 8,
     marginTop: 10,
-    height: "11%",
     borderRadius: 8,
     borderWidth: 2,
     borderColor: "#7b9ef6ff",

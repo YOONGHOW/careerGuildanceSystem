@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
@@ -76,13 +75,24 @@ export default function EducationSetup() {
         {/* Content Box */}
         <View style={styles.box}>
           <Text style={styles.boxTitle}>Education</Text>
+
+          <Text style={styles.label}>University:</Text>
+
+          {/* Input Field */}
+          <View style={{ position: "relative" }}>
+            <TextInput
+              style={styles._textInput}
+              placeholder="Enter your university name"
+            />
+          </View>
+
           <Text style={styles.label}>Education Level:</Text>
 
           {/* Input Field */}
           <View style={{ position: "relative" }}>
             <TextInput
               style={styles._textInput}
-              placeholder="Enter your interest"
+              placeholder="Enter your education level"
               value={_interestInput}
               onChangeText={(text) => {
                 setInterestInput(text);
@@ -115,7 +125,7 @@ export default function EducationSetup() {
           <View style={{ position: "relative" }}>
             <TextInput
               style={styles._textInput}
-              placeholder="Enter your interest"
+              placeholder="Enter your field of study"
               value={_interestInput}
               onChangeText={(text) => {
                 setInterestInput(text);
@@ -145,7 +155,7 @@ export default function EducationSetup() {
           <View style={{ position: "relative" }}>
             <TextInput
               style={styles._textInput}
-              placeholder="Enter your Mbti"
+              placeholder="Enter your academic result"
               value={_personalityInput}
               onChangeText={(text) => {
                 setPersonalityInput(text);
@@ -192,11 +202,11 @@ const styles = StyleSheet.create({
   },
   header: {
     marginVertical: 30,
-    marginTop: 70,
+    marginTop: 50,
   },
   headerTitle: {
     color: "#8BA0FF",
-    fontSize: 27,
+    fontSize: 25,
     fontWeight: "700",
     textAlign: "center",
     marginBottom: 6,
@@ -204,7 +214,7 @@ const styles = StyleSheet.create({
 
   boxTitle: {
     color: "#446cffff",
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "700",
     textAlign: "center",
     marginBottom: 6,
@@ -213,7 +223,7 @@ const styles = StyleSheet.create({
 
   box: {
     width: "100%",
-    height: "68%",
+    height: "75%",
     padding: 20,
     borderRadius: 12,
     backgroundColor: "#fff",
@@ -225,7 +235,7 @@ const styles = StyleSheet.create({
     marginTop: -10,
   },
   label: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "600",
     color: "#1B457C",
   },
@@ -254,11 +264,11 @@ const styles = StyleSheet.create({
   _textInput: {
     marginBottom: 8,
     marginTop: 10,
-    height: 50,
+    height: 48,
     borderRadius: 8,
     borderWidth: 2,
     borderColor: "#7b9ef6ff",
-    fontSize: 16,
+    fontSize: 14,
     paddingHorizontal: 10,
     backgroundColor: "#fff",
   },

@@ -76,7 +76,7 @@ export default function Homepage() {
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    marginTop: 60,
+    marginTop: 50,
     padding: 15,
     paddingBottom: 100,
   },

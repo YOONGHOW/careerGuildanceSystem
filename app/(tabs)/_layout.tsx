@@ -51,7 +51,19 @@ export default function TabLayout() {
           ),
         }}
       />
-
+      <Tabs.Screen
+        name="job-status"
+        options={{
+          title: "My Jobs",
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? "briefcase" : "briefcase-outline"}
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+      />
       <Tabs.Screen
         name="profile"
         options={{

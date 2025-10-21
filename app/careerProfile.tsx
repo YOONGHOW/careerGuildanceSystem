@@ -145,7 +145,7 @@ export default function CareerProfile() {
           <View style={{ position: "relative" }}>
             <TextInput
               style={styles._textInput}
-              placeholder="Enter your Mbti"
+              placeholder="Enter your MBTI"
               value={_personalityInput}
               onChangeText={(text) => {
                 setPersonalityInput(text);
@@ -177,7 +177,7 @@ export default function CareerProfile() {
             style={styles.btnNext}
             onPress={() => router.push("/(tabs)/home")}
           >
-            <Text style={styles.btnText}>Next</Text>
+            <Text style={styles.btnText}>Submit</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -192,11 +192,11 @@ const styles = StyleSheet.create({
   },
   header: {
     marginVertical: 30,
-    marginTop: 70,
+    marginTop: 50,
   },
   headerTitle: {
     color: "#8BA0FF",
-    fontSize: 27,
+    fontSize: 25,
     fontWeight: "700",
     textAlign: "center",
     marginBottom: 6,
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
 
   box: {
     width: "100%",
-    height: "68%",
+    height: "65%",
     padding: 20,
     borderRadius: 12,
     backgroundColor: "#fff",
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     marginTop: -10,
   },
   label: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "600",
     color: "#1B457C",
   },
@@ -254,11 +254,11 @@ const styles = StyleSheet.create({
   _textInput: {
     marginBottom: 8,
     marginTop: 10,
-    height: 50,
+    height: 48,
     borderRadius: 8,
     borderWidth: 2,
     borderColor: "#7b9ef6ff",
-    fontSize: 16,
+    fontSize: 14,
     paddingHorizontal: 10,
     backgroundColor: "#fff",
   },
