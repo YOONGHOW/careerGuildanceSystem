@@ -54,7 +54,7 @@ export default function OTPVerification() {
             maxLength={1}
             onChangeText={(text: string) => handleChange(text, index)}
             ref={(ref) => {
-              inputs[index] = ref; // ref is TextInput | null
+              inputs[index] = ref;
             }}
           />
         ))}

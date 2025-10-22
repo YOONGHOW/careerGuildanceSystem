@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
@@ -12,7 +11,7 @@ import {
   Alert,
 } from "react-native";
 import { auth, db } from "../firebaseConfig";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 
 export default function CareerProfile() {
   const router = useRouter();

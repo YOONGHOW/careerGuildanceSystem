@@ -5,13 +5,12 @@ import {
   View,
   Text,
   TextInput,
-  FlatList,
   TouchableOpacity,
   StyleSheet,
   Alert,
 } from "react-native";
 import { auth, db } from "../firebaseConfig";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 
 export default function EducationSetup() {
   const router = useRouter();

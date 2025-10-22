@@ -1,5 +1,4 @@
 import { useRouter } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   View,
@@ -23,11 +22,13 @@ export default function NewPassword() {
           <TextInput
             placeholder="Enter your password"
             style={styles._textInput}
+            secureTextEntry
           />
           <Text style={styles.label}>Confirm Password: </Text>
           <TextInput
             placeholder="Enter your password again"
             style={styles._textInput}
+            secureTextEntry
           />
           <TouchableOpacity
             style={styles.btnNext}

@@ -5,15 +5,12 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
   TextInput,
   TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ForogtPassword() {
-  const [password, setPassword] = useState("");
-  const [hidePassword, setHidePassword] = useState(true);
   const router = useRouter();
 
   function handleOtp() {
