@@ -9,11 +9,22 @@ import {
   TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
+  Alert,
 } from "react-native";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
 
 export default function Profilepage() {
   const router = useRouter();
-
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      Alert.alert("Logged out successfully");
+      router.replace("/");
+    } catch {
+      Alert.alert("Logout failed");
+    }
+  };
   return (
     <View style={{ flex: 1, backgroundColor: "#C7D7FF", paddingTop: 50 }}>
       <KeyboardAvoidingView>
@@ -112,10 +123,7 @@ export default function Profilepage() {
               <Text style={styles.language}>Chinese - Mandarin</Text>
             </View>
           </View>
-          <TouchableOpacity
-            style={styles.btnLogout}
-            onPress={() => router.replace("/")}
-          >
+          <TouchableOpacity style={styles.btnLogout} onPress={handleLogout}>
             <Text style={styles.btnText}>Sign out</Text>
           </TouchableOpacity>
         </ScrollView>

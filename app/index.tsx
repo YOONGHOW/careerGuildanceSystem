@@ -7,18 +7,26 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebaseConfig";
 
 export default function LoginScreen() {
-  const [password, setPassword] = useState("");
-  const [hidePassword, setHidePassword] = useState(true);
   const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  function handleLogin() {
-    // after login success, go to tabs/home
-    router.replace("/educationSetup");
-  }
+  const handleLogin = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      router.push("/educationSetup");
+    } catch (error) {
+      Alert.alert("Login failed");
+    }
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#d9efffff" }}>
       <View style={styles.container}>
@@ -35,14 +43,19 @@ export default function LoginScreen() {
         </View>
         <View style={styles.box}>
           <Text style={styles.label}>Email: </Text>
-          <TextInput placeholder="Enter your email" style={styles._textInput} />
+          <TextInput
+            placeholder="Enter your email"
+            style={styles._textInput}
+            onChangeText={setEmail}
+            value={email}
+          />
           <Text style={styles.label}>Password: </Text>
           <TextInput
             placeholder="Enter your password"
             style={styles._textInput}
             onChangeText={setPassword}
             value={password}
-            secureTextEntry={hidePassword}
+            secureTextEntry
           />
           <TouchableOpacity style={styles.btnLogin} onPress={handleLogin}>
             <Text style={styles.btnText}>Login</Text>

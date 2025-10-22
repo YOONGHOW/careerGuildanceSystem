@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -7,10 +8,45 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from "react-native";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../firebaseConfig";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function RegisterScreen() {
   const router = useRouter();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleSignup = async () => {
+    if (password !== confirmPassword) {
+      Alert.alert(
+        "Passwords do not match",
+        "Please re-enter the same password."
+      );
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await setDoc(doc(db, "users", userCredential.user.uid), {
+        email,
+        username,
+        createdAt: new Date().toISOString(),
+      });
+      Alert.alert("Signup successful");
+      router.push("/otpRequest");
+    } catch {
+      Alert.alert("Signup failed");
+    }
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#d9efffff" }}>
@@ -23,24 +59,37 @@ export default function RegisterScreen() {
         </View>
         <View style={styles.box}>
           <Text style={styles.label}>Username: </Text>
-          <TextInput placeholder="Enter your name" style={styles._textInput} />
+          <TextInput
+            placeholder="Enter your name"
+            style={styles._textInput}
+            value={username}
+            onChangeText={setUsername}
+          />
           <Text style={styles.label}>Email: </Text>
-          <TextInput placeholder="Enter your email" style={styles._textInput} />
+          <TextInput
+            placeholder="Enter your email"
+            style={styles._textInput}
+            onChangeText={setEmail}
+            value={email}
+          />
           <Text style={styles.label}>Password: </Text>
           <TextInput
             placeholder="Enter your password"
             style={styles._textInput}
+            onChangeText={setPassword}
+            value={password}
+            secureTextEntry
           />
           <Text style={styles.label}>Confirm Password: </Text>
           <TextInput
             placeholder="Enter your password again"
             style={styles._textInput}
+            onChangeText={setConfirmPassword}
+            value={confirmPassword}
+            secureTextEntry
           />
-          <TouchableOpacity
-            style={styles.btnNext}
-            onPress={() => router.push("/otpRequest")}
-          >
-            <Text style={styles.btnText}>Submit</Text>
+          <TouchableOpacity style={styles.btnNext} onPress={handleSignup}>
+            <Text style={styles.btnText}>Register</Text>
           </TouchableOpacity>
         </View>
       </View>
