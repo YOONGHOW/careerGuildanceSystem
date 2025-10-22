@@ -8,61 +8,41 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
+import { auth, db } from "../firebaseConfig";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 export default function EducationSetup() {
   const router = useRouter();
-  const interests = [
-    "Information Technology",
-    "Infrastructure",
-    "Innovation",
-    "Investment",
-    "Interior Design",
-  ];
+  const user = auth.currentUser;
+  const [_university, setUniversity] = useState("");
+  const [_educationLevel, setEducationLevel] = useState("");
+  const [_fieldOfStudy, setFieldOfStudy] = useState("");
+  const [_academicResult, setAcademicResult] = useState("");
 
-  const _16personality = [
-    "INTJ",
-    "INTP",
-    "ENTJ",
-    "ENTP",
-    "INFJ",
-    "INFP",
-    "ENFJ",
-    "ENFP",
-    "ISTJ",
-    "ISFJ",
-    "ESTJ",
-    "ESFJ",
-    "ISTP",
-    "ISFP",
-    "ESTP",
-    "ESFP",
-  ];
+  if (!user) {
+    return;
+  }
 
-  const [_interestInput, setInterestInput] = useState("");
-  const [_personalityInput, setPersonalityInput] = useState("");
-  const [showInterestSuggestions, setShowInterestSuggestions] = useState(false);
-  const [showPersonalitySuggestions, setShowPersonalitySuggestions] =
-    useState(false);
+  const handleAddEducation = async () => {
+    try {
+      await addDoc(collection(db, "education"), {
+        userId: user.uid,
+        _university,
+        _educationLevel,
+        _fieldOfStudy,
+        _academicResult,
+      });
+      setUniversity("");
+      setEducationLevel("");
+      setFieldOfStudy("");
+      setAcademicResult("");
+    } catch (error: any) {
+      Alert.alert("Invalid Input", error.code, error.message);
+    }
 
-  //interest text input show card
-  const filtered_interest = interests.filter((item) =>
-    item.toLowerCase().includes(_interestInput.toLowerCase())
-  );
-
-  const handleSelectInterest = (item: string) => {
-    setInterestInput(item);
-    setShowInterestSuggestions(false);
-  };
-
-  //personality text input show card
-  const filtered_personality = _16personality.filter((item) =>
-    item.toLowerCase().includes(_personalityInput.toLowerCase())
-  );
-
-  const handleSelectPersonality = (item: string) => {
-    setPersonalityInput(item);
-    setShowPersonalitySuggestions(false);
+    router.push("/careerProfile");
   };
 
   return (
@@ -83,6 +63,10 @@ export default function EducationSetup() {
             <TextInput
               style={styles._textInput}
               placeholder="Enter your university name"
+              value={_university}
+              onChangeText={(text) => {
+                setUniversity(text);
+              }}
             />
           </View>
 
@@ -93,30 +77,11 @@ export default function EducationSetup() {
             <TextInput
               style={styles._textInput}
               placeholder="Enter your education level"
-              value={_interestInput}
+              value={_educationLevel}
               onChangeText={(text) => {
-                setInterestInput(text);
-                setShowInterestSuggestions(true);
+                setEducationLevel(text);
               }}
             />
-
-            {/* Suggestion Dropdown */}
-            {showInterestSuggestions && _interestInput.length > 0 && (
-              <View style={styles.suggestionBox}>
-                <FlatList
-                  data={filtered_interest}
-                  keyExtractor={(item, index) => index.toString()}
-                  renderItem={({ item }) => (
-                    <TouchableOpacity
-                      style={styles.suggestion}
-                      onPress={() => handleSelectInterest(item)}
-                    >
-                      <Text>{item}</Text>
-                    </TouchableOpacity>
-                  )}
-                />
-              </View>
-            )}
           </View>
 
           <Text style={styles.label}>Field of study:</Text>
@@ -126,67 +91,26 @@ export default function EducationSetup() {
             <TextInput
               style={styles._textInput}
               placeholder="Enter your field of study"
-              value={_interestInput}
+              value={_fieldOfStudy}
               onChangeText={(text) => {
-                setInterestInput(text);
-                setShowInterestSuggestions(true);
+                setFieldOfStudy(text);
               }}
             />
-
-            {/* Suggestion Dropdown */}
-            {showInterestSuggestions && _interestInput.length > 0 && (
-              <View style={styles.suggestionBox}>
-                <FlatList
-                  data={filtered_interest}
-                  keyExtractor={(item, index) => index.toString()}
-                  renderItem={({ item }) => (
-                    <TouchableOpacity
-                      style={styles.suggestion}
-                      onPress={() => handleSelectInterest(item)}
-                    >
-                      <Text>{item}</Text>
-                    </TouchableOpacity>
-                  )}
-                />
-              </View>
-            )}
           </View>
           <Text style={styles.label}>Academic Result:</Text>
           <View style={{ position: "relative" }}>
             <TextInput
               style={styles._textInput}
               placeholder="Enter your academic result"
-              value={_personalityInput}
+              value={_academicResult}
               onChangeText={(text) => {
-                setPersonalityInput(text);
-                setShowPersonalitySuggestions(true);
+                setAcademicResult(text);
               }}
             />
-
-            {/* Suggestion Dropdown */}
-            {showPersonalitySuggestions && _personalityInput.length > 0 && (
-              <View style={styles.suggestionBox}>
-                <FlatList
-                  data={filtered_personality}
-                  keyExtractor={(item, index) => index.toString()}
-                  renderItem={({ item }) => (
-                    <TouchableOpacity
-                      style={styles.suggestion}
-                      onPress={() => handleSelectPersonality(item)}
-                    >
-                      <Text>{item}</Text>
-                    </TouchableOpacity>
-                  )}
-                />
-              </View>
-            )}
           </View>
 
           {/* Button */}
-          <TouchableOpacity
-            style={styles.btnNext}
-            onPress={() => router.push("/careerProfile")}
-          >
+          <TouchableOpacity style={styles.btnNext} onPress={handleAddEducation}>
             <Text style={styles.btnText}>Next</Text>
           </TouchableOpacity>
         </View>

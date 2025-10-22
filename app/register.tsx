@@ -37,6 +37,7 @@ export default function RegisterScreen() {
         password
       );
       await setDoc(doc(db, "users", userCredential.user.uid), {
+        uid: userCredential.user.uid,
         email,
         username,
         createdAt: new Date().toISOString(),

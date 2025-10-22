@@ -11,7 +11,15 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebaseConfig";
+import { auth, db } from "../firebaseConfig";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -20,9 +28,44 @@ export default function LoginScreen() {
 
   const handleLogin = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      router.push("/educationSetup");
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      const uid = user.uid;
+
+      // 1️⃣ Get the main user document
+      const userRef = doc(db, "users", uid);
+      const userSnap = await getDoc(userRef);
+
+      if (!userSnap.exists()) {
+        Alert.alert("User data not found");
+        return;
+      }
+
+      const educationQuery = query(
+        collection(db, "education"),
+        where("userId", "==", uid)
+      );
+      const eduSnapshot = await getDocs(educationQuery);
+      const hasEducation = !eduSnapshot.empty;
+
+      const skillQuery = query(
+        collection(db, "skill"),
+        where("userId", "==", uid)
+      );
+      const skillSnapshot = await getDocs(skillQuery);
+      const hasSkills = !skillSnapshot.empty;
+
+      if (hasEducation && hasSkills) {
+        router.push("/(tabs)/home");
+      } else {
+        router.push("/educationSetup");
+      }
     } catch (error) {
+      console.error(error);
       Alert.alert("Login failed");
     }
   };

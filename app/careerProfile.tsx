@@ -9,7 +9,10 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
+import { auth, db } from "../firebaseConfig";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 export default function CareerProfile() {
   const router = useRouter();
@@ -40,11 +43,35 @@ export default function CareerProfile() {
     "ESFP",
   ];
 
+  const [_skillInput, setSkillInput] = useState("");
   const [_interestInput, setInterestInput] = useState("");
   const [_personalityInput, setPersonalityInput] = useState("");
   const [showInterestSuggestions, setShowInterestSuggestions] = useState(false);
   const [showPersonalitySuggestions, setShowPersonalitySuggestions] =
     useState(false);
+  const user = auth.currentUser;
+
+  if (!user) {
+    return;
+  }
+
+  const handleAddCareer = async () => {
+    try {
+      await addDoc(collection(db, "skill"), {
+        userId: user.uid,
+        _skillInput,
+        _interestInput,
+        _personalityInput,
+      });
+      setSkillInput("");
+      setInterestInput("");
+      setPersonalityInput("");
+    } catch (error: any) {
+      Alert.alert("Invalid Input", error.code, error.message);
+    }
+
+    router.push("/(tabs)/home");
+  };
 
   //interest text input show card
   const filtered_interest = interests.filter((item) =>
@@ -82,31 +109,12 @@ export default function CareerProfile() {
           <View style={{ position: "relative" }}>
             <TextInput
               style={styles._textInput}
-              placeholder="Enter your interest"
-              value={_interestInput}
+              placeholder="Enter your skill"
+              value={_skillInput}
               onChangeText={(text) => {
-                setInterestInput(text);
-                setShowInterestSuggestions(true);
+                setSkillInput(text);
               }}
             />
-
-            {/* Suggestion Dropdown */}
-            {showInterestSuggestions && _interestInput.length > 0 && (
-              <View style={styles.suggestionBox}>
-                <FlatList
-                  data={filtered_interest}
-                  keyExtractor={(item, index) => index.toString()}
-                  renderItem={({ item }) => (
-                    <TouchableOpacity
-                      style={styles.suggestion}
-                      onPress={() => handleSelectInterest(item)}
-                    >
-                      <Text>{item}</Text>
-                    </TouchableOpacity>
-                  )}
-                />
-              </View>
-            )}
           </View>
 
           <Text style={styles.label}>Interest:</Text>
@@ -173,10 +181,7 @@ export default function CareerProfile() {
           </View>
 
           {/* Button */}
-          <TouchableOpacity
-            style={styles.btnNext}
-            onPress={() => router.push("/(tabs)/home")}
-          >
+          <TouchableOpacity style={styles.btnNext} onPress={handleAddCareer}>
             <Text style={styles.btnText}>Submit</Text>
           </TouchableOpacity>
         </View>
