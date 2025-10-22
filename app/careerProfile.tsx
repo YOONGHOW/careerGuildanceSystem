@@ -11,7 +11,7 @@ import {
   Alert,
 } from "react-native";
 import { auth, db } from "../firebaseConfig";
-import { addDoc, collection } from "firebase/firestore";
+import { doc, setDoc, collection, updateDoc } from "firebase/firestore";
 
 export default function CareerProfile() {
   const router = useRouter();
@@ -56,20 +56,41 @@ export default function CareerProfile() {
 
   const handleAddCareer = async () => {
     try {
-      await addDoc(collection(db, "skill"), {
+      const user = auth.currentUser;
+      if (!user) {
+        Alert.alert("Error", "User not logged in");
+        return;
+      }
+
+      const newDocRef = doc(collection(db, "careerProfile"));
+
+      // 2️⃣ Prepare data
+      const data = {
+        id: newDocRef.id,
         userId: user.uid,
-        _skillInput,
-        _interestInput,
-        _personalityInput,
+        skill: _skillInput,
+        interest: _interestInput,
+        personality: _personalityInput,
+        createdAt: new Date(),
+      };
+
+      await setDoc(newDocRef, data);
+
+      const userRef = doc(db, "users", user.uid);
+      await updateDoc(userRef, {
+        skillId: newDocRef.id,
       });
+
+      Alert.alert("Success", "Career profile added successfully!");
       setSkillInput("");
       setInterestInput("");
       setPersonalityInput("");
-    } catch (error: any) {
-      Alert.alert("Invalid Input", error.code, error.message);
-    }
 
-    router.push("/(tabs)/home");
+      router.push("/(tabs)/home");
+    } catch (error: any) {
+      console.error(error);
+      Alert.alert("Error saving data", error.message);
+    }
   };
 
   //interest text input show card

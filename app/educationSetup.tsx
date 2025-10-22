@@ -10,7 +10,7 @@ import {
   Alert,
 } from "react-native";
 import { auth, db } from "../firebaseConfig";
-import { addDoc, collection } from "firebase/firestore";
+import { doc, setDoc, collection, updateDoc } from "firebase/firestore";
 
 export default function EducationSetup() {
   const router = useRouter();
@@ -26,22 +26,37 @@ export default function EducationSetup() {
 
   const handleAddEducation = async () => {
     try {
-      await addDoc(collection(db, "education"), {
+      const user = auth.currentUser;
+      if (!user) {
+        Alert.alert("Error", "User not logged in");
+        return;
+      }
+
+      const newDocRef = doc(collection(db, "education"));
+
+      const data = {
+        id: newDocRef.id,
         userId: user.uid,
         _university,
         _educationLevel,
         _fieldOfStudy,
         _academicResult,
-      });
-      setUniversity("");
-      setEducationLevel("");
-      setFieldOfStudy("");
-      setAcademicResult("");
-    } catch (error: any) {
-      Alert.alert("Invalid Input", error.code, error.message);
-    }
+        createdAt: new Date(),
+      };
 
-    router.push("/careerProfile");
+      await setDoc(newDocRef, data);
+
+      const userRef = doc(db, "users", user.uid);
+      await updateDoc(userRef, {
+        educationId: newDocRef.id,
+      });
+
+      Alert.alert("Success", "Education added successfully!");
+      router.push("/careerProfile");
+    } catch (error: any) {
+      console.error(error);
+      Alert.alert("Error", error.message);
+    }
   };
 
   return (

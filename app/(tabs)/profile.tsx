@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
 import {
   View,
@@ -9,12 +9,82 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { signOut } from "firebase/auth";
-import { auth } from "../../firebaseConfig";
+import { auth, db } from "../../firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
+import { Education, Skill } from "../model/dataType";
 
 export default function Profilepage() {
   const router = useRouter();
+
+  const [education, setEducation] = useState<Education | null>(null);
+  const [skill, setSkill] = useState<Skill | null>(null);
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const user = auth.currentUser;
+        if (!user) {
+          Alert.alert("Error", "User not logged in");
+          return;
+        }
+
+        // 1️⃣ Get main user document
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userRef);
+
+        if (!userSnap.exists()) {
+          Alert.alert("User data not found");
+          return;
+        }
+
+        const userData = userSnap.data();
+        setUserName(userData.username || "User");
+        setUserEmail(userData.email || user.email || "");
+
+        // 2️⃣ Get Education document (if linked)
+        if (userData.educationId) {
+          const eduRef = doc(db, "education", userData.educationId);
+          const eduSnap = await getDoc(eduRef);
+          if (eduSnap.exists()) {
+            setEducation(eduSnap.data() as Education);
+          }
+        }
+
+        // 3️⃣ Get Skill document (if linked)
+        if (userData.skillId) {
+          const skillRef = doc(db, "careerProfile", userData.skillId);
+          const skillSnap = await getDoc(skillRef);
+          if (skillSnap.exists()) {
+            setSkill(skillSnap.data() as Skill);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+        Alert.alert("Error fetching profile data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // 4️⃣ Loading state
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#4a60c0ff" />
+        <Text>Loading profile data...</Text>
+      </View>
+    );
+  }
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -24,6 +94,7 @@ export default function Profilepage() {
       Alert.alert("Logout failed");
     }
   };
+
   return (
     <View style={{ flex: 1, backgroundColor: "#C7D7FF", paddingTop: 50 }}>
       <KeyboardAvoidingView>
@@ -40,7 +111,7 @@ export default function Profilepage() {
             style={styles.headerImg}
           />
 
-          <Text style={styles.profileName}>Lim Yoong How</Text>
+          <Text style={styles.profileName}>{userName}</Text>
           <View style={styles.box}>
             {/*Education */}
             <Text style={styles.firstheader}>Education</Text>
@@ -52,14 +123,16 @@ export default function Profilepage() {
                 marginVertical: 12,
               }}
             />
+            <Text style={styles.label}>School:</Text>
+            <Text style={styles.profileData}>{education?._university}</Text>
             <Text style={styles.label}>Education Level:</Text>
-            <Text style={styles.profileData}>
-              Diploma in Information technology
-            </Text>
+            <Text style={styles.profileData}>{education?._educationLevel}</Text>
             <Text style={styles.label}>Field of study:</Text>
-            <Text style={styles.profileData}>Information Technology</Text>
+            <Text style={styles.profileData}>{education?._fieldOfStudy}</Text>
             <Text style={styles.label}>Academic Result:</Text>
-            <Text style={styles.profileData}>CGPA 3.27</Text>
+            <Text style={styles.profileData}>
+              CGPA {education?._academicResult}
+            </Text>
 
             {/*Career Profile */}
             <Text style={styles.subheader}>Skill</Text>
@@ -303,5 +376,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "600",
     color: "#1B457C",
+  },
+
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
