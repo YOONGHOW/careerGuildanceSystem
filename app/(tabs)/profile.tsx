@@ -72,7 +72,6 @@ export default function Profilepage() {
     fetchData();
   }, []);
 
-  // Loading state
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
