@@ -14,7 +14,7 @@ export interface Skill {
   _skillInput: string;
 }
 
-export interface job {
+export interface jobs {
   job_id: string;
   company_name: string;
   job_description: string;
