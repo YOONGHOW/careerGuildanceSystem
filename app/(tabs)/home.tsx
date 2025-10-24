@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import {
   View,
@@ -9,9 +10,27 @@ import {
   ScrollView,
   KeyboardAvoidingView,
 } from "react-native";
+import { db } from "../../firebaseConfig";
+import { collection, onSnapshot } from "firebase/firestore";
+import { jobs } from "../model/dataType";
 
 export default function Homepage() {
   const router = useRouter();
+  const [jobList, setJobList] = useState<jobs[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "job"), (snapshot) => {
+      const jobData = snapshot.docs.map((doc) => ({
+        job_id: doc.id,
+        ...doc.data(),
+      })) as jobs[];
+
+      setJobList(jobData);
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
 
   return (
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: "#d9efffff" }}>
@@ -34,20 +53,19 @@ export default function Homepage() {
             placeholderTextColor="#999"
           />
         </View>
-        {Array.from({ length: 6 }).map((_, index) => (
-          <View key={index} style={styles.box}>
+
+        {jobList.map((item) => (
+          <View key={item.job_id} style={styles.box}>
             <Image
               source={require("../../assets/images/logo.png")}
               style={styles.companyLogo}
             />
             <View style={styles.textContainer}>
-              <Text style={styles.jobTitle}>
-                Internship - Software Engineer
-              </Text>
-              <Text style={styles.companyName}>Google Inc.</Text>
-              <Text style={styles.jobType}>Full Time</Text>
-              <Text style={styles.location}>Kuala Lumpur, Malaysia</Text>
-              <Text style={styles.salary}>RM1000 - RM1200</Text>
+              <Text style={styles.jobTitle}>{item.job_name}</Text>
+              <Text style={styles.companyName}>{item.company_name}</Text>
+              <Text style={styles.jobType}>{item.job_type}</Text>
+              <Text style={styles.location}>{item.job_location}</Text>
+              <Text style={styles.salary}>RM{item.job_salary}</Text>
             </View>
           </View>
         ))}
@@ -62,7 +80,6 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingBottom: 100,
   },
-
   headerTitle: {
     color: "#8c92aaff",
     fontSize: 24,
@@ -70,7 +87,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 6,
   },
-
   _textInput: {
     width: "100%",
     marginBottom: 8,
@@ -101,7 +117,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
   },
-
   box: {
     flexDirection: "row",
     alignItems: "center",
@@ -116,42 +131,35 @@ const styles = StyleSheet.create({
     elevation: 4,
     marginTop: 12,
   },
-
   companyLogo: {
     height: 65,
     width: 65,
     marginRight: 20,
     borderRadius: 5,
   },
-
   textContainer: {
     flex: 1,
   },
-
   jobTitle: {
     fontSize: 18,
     fontWeight: "700",
     color: "#1B457C",
   },
-
   companyName: {
     fontSize: 18,
     color: "#6b6b6b",
     marginTop: 4,
   },
-
   jobType: {
     fontSize: 15,
     color: "#8b8b8b",
     marginTop: 2,
   },
-
   location: {
     fontSize: 15,
     color: "#8b8b8b",
     marginTop: 2,
   },
-
   salary: {
     fontSize: 15,
     color: "#8b8b8b",

@@ -13,3 +13,13 @@ export interface Skill {
   _personalityInput: string;
   _skillInput: string;
 }
+
+export interface job {
+  job_id: string;
+  company_name: string;
+  job_description: string;
+  job_location: string;
+  job_name: string;
+  job_salary: number;
+  job_type: string;
+}

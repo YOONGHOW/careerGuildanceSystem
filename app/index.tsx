@@ -52,7 +52,7 @@ export default function LoginScreen() {
       const hasEducation = !eduSnapshot.empty;
 
       const skillQuery = query(
-        collection(db, "skill"),
+        collection(db, "careerProfile"),
         where("userId", "==", uid)
       );
       const skillSnapshot = await getDocs(skillQuery);

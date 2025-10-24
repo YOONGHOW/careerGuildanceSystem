@@ -34,7 +34,6 @@ export default function Profilepage() {
           return;
         }
 
-        // 1️⃣ Get main user document
         const userRef = doc(db, "users", user.uid);
         const userSnap = await getDoc(userRef);
 
@@ -47,7 +46,6 @@ export default function Profilepage() {
         setUserName(userData.username || "User");
         setUserEmail(userData.email || user.email || "");
 
-        // 2️⃣ Get Education document (if linked)
         if (userData.educationId) {
           const eduRef = doc(db, "education", userData.educationId);
           const eduSnap = await getDoc(eduRef);
@@ -56,7 +54,6 @@ export default function Profilepage() {
           }
         }
 
-        // 3️⃣ Get Skill document (if linked)
         if (userData.skillId) {
           const skillRef = doc(db, "careerProfile", userData.skillId);
           const skillSnap = await getDoc(skillRef);
@@ -75,7 +72,7 @@ export default function Profilepage() {
     fetchData();
   }, []);
 
-  // 4️⃣ Loading state
+  // Loading state
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
